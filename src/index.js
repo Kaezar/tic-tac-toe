@@ -13,8 +13,7 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
+            squares: Array(9).fill(null)
         };
     }
 
@@ -27,9 +26,9 @@ class Board extends React.Component {
         // put an x in the square, update state and set next player
         squares[i] = 'X';
         this.setState({
-            squares: squares,
-            xIsNext: !this.state.xIsNext,
+            squares: squares
         });
+        this.props.changeNext()
     }
 
     renderSquare(i) {
@@ -45,9 +44,9 @@ class Board extends React.Component {
         const winner = calculateWinner(this.state.squares);
         let status;
         if (winner) {
-            status = 'Player ' + (this.state.xIsNext ? '1' : '2') + ' wins!';
+            status = 'Player ' + (this.props.xIsNext ? '1' : '2') + ' wins!';
         } else {
-            status = 'Player ' + (this.state.xIsNext ? '1' : '2') + '\'s turn';
+            status = 'Player ' + (this.props.xIsNext ? '1' : '2') + '\'s turn';
         }
 
         return (
@@ -74,10 +73,38 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            xIsNext: true
+        };
+    }
+    handleChange() {
+        this.setState({
+            xIsNext : !this.state.xIsNext
+        });
+    }
     render() {
         return (
             <div className="game">
-                <Board />
+                <div>
+                    <Board
+                        xIsNext={this.state.xIsNext}
+                        changeNext={() => this.handleChange()}
+                    />
+                </div>
+                <div>
+                    <Board
+                        xIsNext={this.state.xIsNext}
+                        changeNext={() => this.handleChange()}
+                    />
+                </div>
+                <div>
+                    <Board
+                        xIsNext={this.state.xIsNext}
+                        changeNext={() => this.handleChange()}
+                    />
+                </div>
             </div>
         );
     }
@@ -111,8 +138,7 @@ function calculateWinner(squares) {
 function App() {
     return (
         <div>
-            <Game />
-            <Game />
+            <h1>Reverse Three-Board Double-X Tic-Tac-Toe!</h1>
             <Game />
         </div>
     );
