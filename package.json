@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Kaezar.github.io/my-app",
+  "homepage": "https://Kaezar.github.io/tic-tac-toe",
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
