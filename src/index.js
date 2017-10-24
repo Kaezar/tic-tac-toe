@@ -20,9 +20,11 @@ class Board extends React.Component {
 
     handleClick(i) {
         const squares = this.state.squares.slice();
+        // if board is dead or the square already has an x in it
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
+        // put an x in the square, update state and set next player
         squares[i] = 'X';
         this.setState({
             squares: squares,
@@ -75,13 +77,7 @@ class Game extends React.Component {
     render() {
         return (
             <div className="game">
-                <div className="game-board">
-                    <Board />
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
+                <Board />
             </div>
         );
     }
