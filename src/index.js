@@ -8,6 +8,13 @@ function Square(props) {
         </button>
     );
 }
+function Reset(props) {
+    return (
+        <button onClick={props.onClick}>
+            Reset
+        </button>
+    )
+}
 
 class Board extends React.Component {
     constructor(props) {
@@ -28,7 +35,7 @@ class Board extends React.Component {
         this.setState({
             squares: squares
         });
-        this.props.changeNext()
+        this.props.changeNext();
     }
 
     renderSquare(i) {
@@ -38,6 +45,19 @@ class Board extends React.Component {
                 onClick={() => this.handleClick(i)}
             />
         );
+    }
+    renderReset() {
+        return (
+            <Reset
+                onClick ={() => this.handleReset()}
+            />
+        );
+    }
+    handleReset() {
+        this.setState({
+            squares: Array(9).fill(null)
+        });
+        this.props.resetNext();
     }
 
     render() {
@@ -67,6 +87,9 @@ class Board extends React.Component {
                     {this.renderSquare(7)}
                     {this.renderSquare(8)}
                 </div>
+                <div>
+                    {this.renderReset()}
+                </div>
             </div>
         );
     }
@@ -78,10 +101,18 @@ class Game extends React.Component {
         this.state = {
             xIsNext: true
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleNext = this.handleNext.bind(this);
+
     }
     handleChange() {
         this.setState({
             xIsNext : !this.state.xIsNext
+        });
+    }
+    handleNext() {
+        this.setState({
+            xIsNext: true
         });
     }
     render() {
@@ -90,19 +121,22 @@ class Game extends React.Component {
                 <div>
                     <Board
                         xIsNext={this.state.xIsNext}
-                        changeNext={() => this.handleChange()}
+                        changeNext={this.handleChange}
+                        resetNext={this.handleNext}
                     />
                 </div>
                 <div>
                     <Board
                         xIsNext={this.state.xIsNext}
-                        changeNext={() => this.handleChange()}
+                        changeNext={this.handleChange}
+                        resetNext={this.handleNext}
                     />
                 </div>
                 <div>
                     <Board
                         xIsNext={this.state.xIsNext}
-                        changeNext={() => this.handleChange()}
+                        changeNext={this.handleChange}
+                        resetNext={this.handleNext}
                     />
                 </div>
             </div>
